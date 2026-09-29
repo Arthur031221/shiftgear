@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install test and lint dependencies
+        run: pip install pytest==9.1.1 ruff==0.16.9
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Test
+        run: pytest
+
+      - name: Prose check (no em/en dashes, no AI-authorship claims)
+        run: |
+          set -e
+          if grep -rn --include='*.md' -e '—' -e '–' .; then
+            echo "found em-dash or en-dash in prose files"
+            exit 1
+          fi
+          if grep -rni --include='*.md' -e 'generated with' -e 'co-authored' -e 'written by ai' -e 'built with claude' -e 'built with chatgpt' .; then
+            echo "found an AI-authorship claim in prose files"
+            exit 1
+          fi
+
+      - name: Decision table CSV is well-formed
+        run: |
+          python3 -c "
+          import csv
+          with open('assets/decision-table.csv') as f:
+              r = csv.reader(f)
+              header = next(r)
+              for i, row in enumerate(r, 1):
+                  assert len(row) == len(header), f'row {i} has {len(row)} fields, expected {len(header)}'
+          print('decision-table.csv OK')
+          "
+
+      - name: scripts are executable and syntactically valid
+        run: |
+          python3 -m py_compile scripts/refresh_models.py scripts/estimate_cost.py
+          bash -n scripts/quota_state.sh
