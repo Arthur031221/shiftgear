@@ -76,7 +76,7 @@ You can also run the pieces standalone:
 
 ```
 python3 scripts/estimate_cost.py --task --model opus-5-5 --effort high
-python3 scripts/quota_state.sh
+bash scripts/quota_state.sh
 python3 scripts/refresh_models.py
 ```
 
