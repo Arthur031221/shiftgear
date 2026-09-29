@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+*.egg-info/
+
+# OS
+.DS_Store
+
+# Local-only benchmark inputs, never committed
+bench/sampled_prompts.jsonl
+bench/*.local.*
+
+# Editors
+.vscode/
+.idea/
