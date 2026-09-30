@@ -3,6 +3,7 @@ name: shiftgear
 description: "Picks which model and which effort or reasoning level to use for the current task, and gives the exact command to apply it, in Claude Code, Codex CLI, Gemini CLI, Cursor, or OpenCode. Use this whenever the user asks which model to use, whether to raise or lower effort/reasoning/thinking level, how to save cost or quota on a task, why a session is burning through the 5-hour or weekly limit, or how to route a long unattended job, a refactor, a security review, a migration, or a batch of repetitive edits. Also trigger before starting any task where the model or effort has not been chosen yet: a fresh architecture decision, a hard bug, a large refactor, bulk mechanical edits, or a run expected to take over 30 minutes unattended. Do not trigger for a question that has nothing to do with model, effort, cost, or quota, for a task already mid-flight on a model the user explicitly picked and did not ask to reconsider, or for a one-line factual question a small model would answer in one turn without agentic work."
 license: MIT
 metadata:
+  author: Arthur031221
   version: "1.0.0"
 compatibility: Works standalone with judgment in any agent that reads Markdown skills. scripts/estimate_cost.py and scripts/refresh_models.py need Python 3.9+, scripts/quota_state.sh needs bash and jq if available (falls back to python3, then to "unknown").
 ---
