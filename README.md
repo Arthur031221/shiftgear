@@ -186,6 +186,12 @@ be. It is 31 real prompts from one person's one week of usage on one
 machine, reported in full rather than padded to a rounder number. See
 bench/results.md for exactly what it does and does not show.
 
+## Related projects
+
+- [cliffhanger](https://github.com/Arthur031221/cliffhanger): shiftgear picks the model before the agent starts. cliffhanger checks that the agent actually finished with it.
+- [modelshift](https://github.com/Arthur031221/modelshift): If shiftgear routes you to a model that is about to retire, modelshift is what finds that out and opens the migration PR.
+- [agentleaks](https://github.com/Arthur031221/agentleaks): Another Claude Code focused tool built for the same unattended-agent workflow.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Short version: every changed
