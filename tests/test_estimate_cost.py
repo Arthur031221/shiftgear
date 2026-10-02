@@ -47,6 +47,15 @@ def test_unknown_effort_raises():
         assert "not-an-effort" in str(e)
 
 
+def test_negative_token_counts_raise():
+    for input_tokens, output_tokens in ((-100, 100), (100, -100)):
+        try:
+            ec.token_cost("sonnet-5-5", "medium", input_tokens, output_tokens)
+            assert False, "expected ValueError"
+        except ValueError as e:
+            assert "non-negative" in str(e)
+
+
 def test_task_cost_returns_known_value():
     cost, derived = ec.task_cost("opus-5-5", "high")
     assert cost == 1.82
@@ -102,6 +111,13 @@ def test_cli_bad_model_errors_cleanly():
                 "--input-tokens", "1", "--output-tokens", "1")
     assert r.returncode == 1
     assert "unknown model" in r.stderr
+
+
+def test_cli_negative_token_counts_error_cleanly():
+    r = run_cli("--model", "sonnet-5-5", "--effort", "medium",
+                "--input-tokens", "-8000", "--output-tokens", "-2000")
+    assert r.returncode == 1
+    assert "non-negative" in r.stderr
 
 
 def test_cli_help_works():

@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Reject negative token counts in the cost estimator instead of returning
+  misleading estimates.
+
 ## 0.1.0 (2026-09-30)
 
 Initial release.

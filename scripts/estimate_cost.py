@@ -88,6 +88,8 @@ def token_cost(model: str, effort: str, input_tokens: int, output_tokens: int) -
         raise ValueError(f"unknown model '{model}', choices: {sorted(PRICES)}")
     if effort not in EFFORT_MULTIPLIER:
         raise ValueError(f"unknown effort '{effort}', choices: {sorted(EFFORT_MULTIPLIER)}")
+    if input_tokens < 0 or output_tokens < 0:
+        raise ValueError("token counts must be non-negative")
     in_price, out_price = PRICES[model]
     base = (input_tokens * in_price + output_tokens * out_price) / 1_000_000
     return base * EFFORT_MULTIPLIER[effort]
