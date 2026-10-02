@@ -4,6 +4,8 @@ Tells your coding agent which model and which effort level to use, before
 it starts, across Claude Code, Codex CLI, Gemini CLI, Cursor, and
 OpenCode.
 
+![shiftgear demo: reading the output template, estimating task cost, checking quota state, checking staleness, and running the test suite](demo/demo.gif)
+
 On the 31 real prompts pulled from this machine's own Claude Code history,
 shiftgear's balanced-mode routing came out an estimated 38.6% cheaper than
 running everything on Opus 5.5 at high effort, using published cost
@@ -24,8 +26,6 @@ routing-cost estimate, not a benchmark of output quality.
 [![CI](https://github.com/Arthur031221/shiftgear/actions/workflows/ci.yml/badge.svg)](https://github.com/Arthur031221/shiftgear/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1.0-informational.svg)](CHANGELOG.md)
-
-![shiftgear demo: reading the output template, estimating task cost, checking quota state, checking staleness, and running the test suite](demo/demo.gif)
 
 ## Why
 
