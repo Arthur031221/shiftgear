@@ -92,6 +92,18 @@ def test_cli_token_mode_json():
     assert payload["usd"] > 0
 
 
+def test_cli_small_token_estimate_keeps_precision():
+    args = ("--model", "gpt-6-luna", "--effort", "low",
+            "--input-tokens", "600", "--output-tokens", "150")
+    text_result = run_cli(*args)
+    assert text_result.returncode == 0
+    assert text_result.stdout.strip() == "$0.00004455"
+
+    json_result = run_cli(*args, "--json")
+    assert json_result.returncode == 0
+    assert json.loads(json_result.stdout)["usd"] == 0.00004455
+
+
 def test_cli_task_mode_json():
     r = run_cli("--task", "--model", "opus-5-5", "--effort", "high", "--json")
     assert r.returncode == 0

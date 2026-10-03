@@ -83,6 +83,12 @@ DERIVED_CELLS = {
 }
 
 
+def format_usd(cost: float) -> str:
+    whole, fractional = f"{cost:.8f}".split(".")
+    fractional = fractional.rstrip("0").ljust(4, "0")
+    return f"${whole}.{fractional}"
+
+
 def token_cost(model: str, effort: str, input_tokens: int, output_tokens: int) -> float:
     if model not in PRICES:
         raise ValueError(f"unknown model '{model}', choices: {sorted(PRICES)}")
@@ -135,7 +141,7 @@ def main(argv=None):
                 "mode": "task",
                 "model": args.model,
                 "effort": args.effort,
-                "usd": round(cost, 4),
+                "usd": round(cost, 8),
                 "derived": derived,
             }
         else:
@@ -150,7 +156,7 @@ def main(argv=None):
                 "effort": args.effort,
                 "input_tokens": args.input_tokens,
                 "output_tokens": args.output_tokens,
-                "usd": round(cost, 4),
+                "usd": round(cost, 8),
             }
     except ValueError as e:
         print(f"error: {e}", file=sys.stderr)
@@ -161,7 +167,7 @@ def main(argv=None):
         print(json.dumps(result))
     else:
         note = " (derived estimate, not a published figure)" if result.get("derived") else ""
-        print(f"${result['usd']:.4f}{note}")
+        print(f"{format_usd(result['usd'])}{note}")
     return 0
 
 

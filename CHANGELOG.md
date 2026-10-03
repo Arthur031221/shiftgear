@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Preserve precision for small token cost estimates instead of displaying a
+  non-zero cost as `$0.0000`.
 - Reject negative token counts in the cost estimator instead of returning
   misleading estimates.
 
